@@ -7,6 +7,14 @@ def home(request):
     return render(request, "EcommerceApp/home.html")
 
 
+def about(request):
+    return render(request, "EcommerceApp/about.html")
+
+
+def contact(request):
+    return render(request, "EcommerceApp/contact.html")
+
+
 class CategoryView(View):
     def get(self, request, val):
         products = Product.objects.filter(category=val)
@@ -14,7 +22,7 @@ class CategoryView(View):
         return render(request, "EcommerceApp/category.html", locals())
 
 
-# add logic to filter the products, by their title in the page
+# add more logic in category page to filter the products by their title
 class CategoryTitle(View):
     def get(self, request, val):
         products = Product.objects.filter(title=val)
