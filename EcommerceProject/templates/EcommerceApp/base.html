@@ -38,17 +38,18 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
+                        Products
 {#                        {{ request.user.username|capfirst }}#}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Milk</a></li>
-                        <li><a class="dropdown-item" href="#">Curd</a></li>
-                        <li><a class="dropdown-item" href="#">Milkshake</a></li>
-                        <li><a class="dropdown-item" href="#">Lassi</a></li>
-                        <li><a class="dropdown-item" href="#">Ghe</a></li>
-                        <li><a class="dropdown-item" href="#">Panner</a></li>
-                        <li><a class="dropdown-item" href="#">Cheese</a></li>
-                        <li><a class="dropdown-item" href="#">Ice-creams</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghe</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Panner</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>
                         {# <li><hr class="dropdown-divider"></li>#}
                         {# <li><a class="dropdown-item" href="#">Something else here</a></li>#}
                     </ul>
