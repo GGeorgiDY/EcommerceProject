@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include("EcommerceProject.EcommerceApp.urls")),
+    path('account/', include("EcommerceProject.Accounts.urls")),
 ]

@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-)dq2d2_@s5bruq+4#*x)0$z0ukrzn@)hry5@hk2-kuxk5=6044'
@@ -16,7 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "EcommerceProject.EcommerceApp"
+    "EcommerceProject.EcommerceApp",
+    "EcommerceProject.Accounts",
 ]
 
 MIDDLEWARE = [
@@ -93,5 +96,8 @@ STATICFILES_DIRS = (BASE_DIR / 'staticfiles',)
 MEDIA_URL = '/media/'
 # но ще се намират на директория media_files
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
+
+# като натисна някакъв login бутон, да ме препраща на home страницата
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
