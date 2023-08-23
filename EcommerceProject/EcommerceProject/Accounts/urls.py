@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_view
 from django.urls import path
 from EcommerceProject.Accounts.forms import CustomerLoginForm, MyPasswordResetForm
-from EcommerceProject.Accounts.views import CustomerRegistrationView, ProfileView
+from EcommerceProject.Accounts.views import CustomerRegistrationView, ProfileView, address
 
 urlpatterns = [
     path("registration/", CustomerRegistrationView.as_view(), name="customerregistration"),
@@ -18,5 +18,5 @@ urlpatterns = [
     ), name="password_reset"),
 
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('address/', ProfileView.as_view(), name='address'),
+    path('address/', address, name='address'),
 ]
