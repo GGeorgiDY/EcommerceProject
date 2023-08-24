@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, \
+    SetPasswordForm
 from django.contrib.auth.models import User
 from EcommerceProject.Accounts.models import Customer
 
@@ -102,7 +103,35 @@ class MyPasswordChangeForm(PasswordChangeForm):
 
 
 class MyPasswordResetForm(PasswordChangeForm):
-    pass
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class':'form-control'
+            }
+        )
+    )
+
+
+class MySetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label='New Password',
+        widget=forms.PasswordInput(
+            attrs={
+                'autocomplete':'çurrent-password',
+                'class':'form-control'
+            }
+        )
+    )
+
+    new_password2 = forms.CharField(
+        label='Confirm New Password',
+        widget=forms.PasswordInput(
+            attrs={
+                'autocomplete':'çurrent-password',
+                'class':'form-control'
+            }
+        )
+    )
 
 
 class CustomerProfileForm(forms.ModelForm):
