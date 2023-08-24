@@ -6,4 +6,5 @@ urlpatterns = [
 
     path('', include("EcommerceProject.EcommerceApp.urls")),
     path('account/', include("EcommerceProject.Accounts.urls")),
+    path('cart/', include("EcommerceProject.Cart.urls")),
 ]

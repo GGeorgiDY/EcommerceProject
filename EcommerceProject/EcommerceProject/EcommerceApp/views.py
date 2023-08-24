@@ -34,3 +34,5 @@ class ProductDetails(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
         return render(request, "EcommerceApp/productdetails.html", locals())
+
+

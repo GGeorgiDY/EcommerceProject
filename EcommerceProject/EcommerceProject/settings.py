@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
     "EcommerceProject.EcommerceApp",
     "EcommerceProject.Accounts",
+    "EcommerceProject.Cart",
 ]
 
 MIDDLEWARE = [
