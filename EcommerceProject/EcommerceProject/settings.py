@@ -101,3 +101,5 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

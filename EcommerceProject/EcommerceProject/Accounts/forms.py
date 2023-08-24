@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, \
-    SetPasswordForm
+    SetPasswordForm, PasswordResetForm
 from django.contrib.auth.models import User
 from EcommerceProject.Accounts.models import Customer
 
@@ -102,7 +102,7 @@ class MyPasswordChangeForm(PasswordChangeForm):
     )
 
 
-class MyPasswordResetForm(PasswordChangeForm):
+class MyPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
