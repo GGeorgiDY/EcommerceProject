@@ -33,7 +33,7 @@
                                 <p>City: {{ ad.city }}</p>
                                 <p>Zipcode: {{ ad.zipcode }}</p>
                                 <p class="text-center">
-                                    <a href="{% url 'updateAddress' pk=ad.id %}" type="button" class="btn btn-success">
+                                    <a href="{% url 'update-address' pk=ad.id %}" type="button" class="btn btn-success">
                                         Update
                                     </a>
                                 </p>
@@ -43,5 +43,7 @@
                     {% endfor %}
                 </div>
             </div>
+        </div>
+    </div>
 
 {% endblock main-content %}
