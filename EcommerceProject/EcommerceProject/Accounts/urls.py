@@ -7,7 +7,7 @@ from EcommerceProject.Accounts.views import CustomerRegistrationView, ProfileVie
 urlpatterns = [
     path("registration/", CustomerRegistrationView.as_view(), name="customerregistration"),
 
-    # понеже го пишем така, не е необходимо да пишем вю
+    # понеже го пишем така, не е необходимо да пишем вю.
     path("login/", auth_view.LoginView.as_view(
         template_name='Accounts/customerlogin.html',
         authentication_form=CustomerLoginForm

@@ -21,6 +21,8 @@ INSTALLED_APPS = [
     "EcommerceProject.EcommerceApp",
     "EcommerceProject.Accounts",
     "EcommerceProject.Cart",
+
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -28,9 +30,14 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    # долното е нещо, което се изпълнява преди всеки един наш request - тоест когато от браузъра се поиска вю-то, това
+    # е нещото което се случва посредата. След като е поискано от браузъра и преди да е стигнало до view кода ни.
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'EcommerceProject.urls'
@@ -104,3 +111,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('home')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
