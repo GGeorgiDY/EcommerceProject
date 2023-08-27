@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views import View
+
 from EcommerceProject.Accounts.models import Customer
 from EcommerceProject.Cart.models import Cart
 from EcommerceProject.EcommerceApp.models import Product
@@ -32,8 +34,17 @@ def show_cart(request):
     return render(request, 'Cart/addtocart.html', locals())
 
 
-def checkout(request):
-    pass
+class checkout(View):
+    def get(self, request):
+        user = Customer.objects.get(user=request.user)
+        add = Customer.objects.filter(user=request.user)
+        cart_items = Cart.objects.filter(user=user)
+        famount = 0
+        for p in cart_items:
+            value = p.quantity*p.product.discounted_price
+            famount = famount + value
+        totalamount = famount + 40
+        return render(request, 'Cart/checkout.html', locals())
 
 
 def plus_cart(request):
