@@ -34,6 +34,16 @@
                 </form>
                 <a href="{% url 'show-cart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Buy Now</a>
 
+                {% if wishlist %}
+                    <a pid="{{ product.id }}" class="minus-wishlist btn btn-danger shadow px-5 py-2 ms-4">
+                        <i class="fas fa-heart fa-ls"></i>
+                    </a>
+                {% else %}
+                    <a pid="{{ product.id }}" class="minus-wishlist btn btn-success shadow px-5 py-2 ms-4">
+                        <i class="fas fa-heart fa-ls"></i>
+                    </a>
+                {% endif %}
+
             </div>
         </div>
     </div>

@@ -24,7 +24,12 @@ def add_to_cart(request):
 
 
 def show_cart(request):
+    totalitem = 0
     user = Customer.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=user))
+
+    # user = Customer.objects.get(user=request.user)
     cart = Cart.objects.filter(user=user)
     amount = 0
     for p in cart:
@@ -36,7 +41,12 @@ def show_cart(request):
 
 class checkout(View):
     def get(self, request):
+        totalitem = 0
         user = Customer.objects.get(user=request.user)
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=user))
+
+        # user = Customer.objects.get(user=request.user)
         add = Customer.objects.filter(user=request.user)
         cart_items = Cart.objects.filter(user=user)
         famount = 0

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from EcommerceProject.Accounts.models import Customer
 from EcommerceProject.EcommerceApp.models import Product

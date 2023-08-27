@@ -3,10 +3,16 @@ from django.shortcuts import render, redirect
 from django.views import View
 from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm
 from EcommerceProject.Accounts.models import Customer
+from EcommerceProject.Cart.models import Cart
 
 
 class CustomerRegistrationView(View):
     def get(self, request):
+        totalitem = 0
+        user = Customer.objects.get(user=request.user)
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=user))
+
         form = CustomerRegistrationForm()
         return render(request, 'Accounts/customerregistration.html', locals())
 
@@ -23,6 +29,11 @@ class CustomerRegistrationView(View):
 
 class ProfileView(View):
     def get(self, request):
+        totalitem = 0
+        user = Customer.objects.get(user=request.user)
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=user))
+
         form = CustomerProfileForm()
         return render(request, 'Accounts/profile.html', locals())
 
@@ -46,12 +57,22 @@ class ProfileView(View):
 
 
 def address(request):
+    totalitem = 0
+    user = Customer.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=user))
+
     add = Customer.objects.filter(user=request.user)
     return render(request, "Accounts/address.html", locals())
 
 
 class UpdateAddress(View):
     def get(self, request, pk):
+        totalitem = 0
+        user = Customer.objects.get(user=request.user)
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=user))
+
         add = Customer.objects.get(pk=pk)
         form = CustomerProfileForm(instance=add)
         return render(request, "Accounts/updateAddress.html", locals())
