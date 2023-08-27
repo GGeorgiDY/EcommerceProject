@@ -23,9 +23,9 @@
 {# https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works #}
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="{% static 'EcommerceApp/images/Neel.png' %}" width="70" height="50" alt="">
-        </a>
+        {#        <a class="navbar-brand" href="#">#}
+        {#            <img src="{% static 'EcommerceApp/images/Neel.png' %}" width="70" height="50" alt="">#}
+        {#        </a>#}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
                             Products
-    {#                        {{ request.user.username|capfirst }}#}
+                            {#                        {{ request.user.username|capfirst }}#}
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
@@ -64,44 +64,45 @@
                         <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
                     </li>
 
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>#}
-{#                    </li>#}
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown mx-2">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Georgi</a>
-                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                            <a class="dropdown-item" href="#">Orders</a>
-                            <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
-                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        </li>
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>#}
+                    {#                    </li>#}
                     </ul>
-                </li>
-                <li class="nav-item mx-2">
-                    <a href="#" class="nav-link text-white">Cart 4</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a href="#" class="nav-link text-white">Wishlist 4</a>
-                </li>
-            {% else %}
-                <li class="nav-item mx-2">
-                    <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
-                </li>
-            {% endif %}
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    </div>
 
-        </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Georgi</a>
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                                <a class="dropdown-item" href="#">Orders</a>
+                                <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="#" class="nav-link text-white">Cart 4</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="#" class="nav-link text-white">Wishlist 4</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+                    </li>
+                {% endif %}
+
+                </ul>
     </div>
 </nav>
 
