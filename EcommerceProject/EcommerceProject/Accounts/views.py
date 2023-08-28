@@ -3,15 +3,17 @@ from django.shortcuts import render, redirect
 from django.views import View
 from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm
 from EcommerceProject.Accounts.models import Customer
-from EcommerceProject.Cart.models import Cart
+from EcommerceProject.Cart.models import Cart, Wishlist
 
 
 class CustomerRegistrationView(View):
     def get(self, request):
         totalitem = 0
+        wishitem = 0
         user = Customer.objects.get(user=request.user)
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=user))
+            wishitem = len(Wishlist.objects.filter(user=request.user))
 
         form = CustomerRegistrationForm()
         return render(request, 'Accounts/customerregistration.html', locals())
@@ -30,9 +32,11 @@ class CustomerRegistrationView(View):
 class ProfileView(View):
     def get(self, request):
         totalitem = 0
+        wishitem = 0
         user = Customer.objects.get(user=request.user)
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=user))
+            wishitem = len(Wishlist.objects.filter(user=request.user))
 
         form = CustomerProfileForm()
         return render(request, 'Accounts/profile.html', locals())
@@ -58,9 +62,11 @@ class ProfileView(View):
 
 def address(request):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
 
     add = Customer.objects.filter(user=request.user)
     return render(request, "Accounts/address.html", locals())
@@ -69,9 +75,11 @@ def address(request):
 class UpdateAddress(View):
     def get(self, request, pk):
         totalitem = 0
+        wishitem = 0
         user = Customer.objects.get(user=request.user)
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=user))
+            wishitem = len(Wishlist.objects.filter(user=request.user))
 
         add = Customer.objects.get(pk=pk)
         form = CustomerProfileForm(instance=add)

@@ -100,7 +100,14 @@
                         </a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a href="#" class="nav-link text-white">Wishlist 4</a>
+                        <a href="#" class="nav-link text-white">
+                            {% if wishitem > 0 %}
+                                <span class="badge bg-danger">
+                                    {{ wishitem }}
+                                </span>
+                            {% endif %}
+                            <i class="fa fa-heart"></i>
+                        </a>
                     </li>
                 {% else %}
                     <li class="nav-item mx-2">

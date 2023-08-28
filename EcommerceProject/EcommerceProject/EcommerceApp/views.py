@@ -10,26 +10,35 @@ from EcommerceProject.EcommerceApp.models import Product
 def home(request):
     # това дисплейва колко продукта имаме в количката, за да ги визуализира в навигацията
     totalitem = 0
+    # това дисплейва колко продукти сме харесали
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
 
     return render(request, "EcommerceApp/home.html", locals())
 
 
 def about(request):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+
     return render(request, "EcommerceApp/about.html", locals())
 
 
 def contact(request):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+
     return render(request, "EcommerceApp/contact.html")
 
 
@@ -42,9 +51,11 @@ def contact(request):
 
 def category_view(request, val):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
 
     # вземи всички продукти със зададената категория
     products = Product.objects.filter(category=val)
@@ -63,9 +74,11 @@ def category_view(request, val):
 
 def category_title(request, val):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
 
     products = Product.objects.filter(title=val)
     title = Product.objects.filter(category=products[0].category).values('title')
@@ -80,9 +93,11 @@ def category_title(request, val):
 
 def product_details(request, pk):
     totalitem = 0
+    wishitem = 0
     user = Customer.objects.get(user=request.user)
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
 
     product = Product.objects.get(pk=pk)
     wishlist = Wishlist.objects.filter(Q(product=product) & Q(user=request.user))
