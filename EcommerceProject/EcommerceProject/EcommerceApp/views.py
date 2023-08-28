@@ -110,3 +110,4 @@ def product_details(request, pk):
     print(wishlist)
 
     return render(request, "EcommerceApp/productdetails.html", locals())
+

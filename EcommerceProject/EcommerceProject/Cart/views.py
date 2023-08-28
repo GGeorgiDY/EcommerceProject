@@ -11,6 +11,8 @@ from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 
 
+SHIPPING_TAX = 5.00
+
 @login_required
 def add_to_cart(request):
     my_user = request.user
@@ -38,10 +40,11 @@ def show_cart(request):
     # user = Customer.objects.get(user=request.user)
     cart = Cart.objects.filter(user=user)
     amount = 0
+    shipping = SHIPPING_TAX
     for p in cart:
         value = p.quantity * p.product.discounted_price
         amount = amount + value
-    totalamount = amount + 40
+    totalamount = amount + shipping
     return render(request, 'Cart/addtocart.html', locals())
 
 
@@ -60,10 +63,11 @@ class checkout(View):
         add = Customer.objects.filter(user=request.user)
         cart_items = Cart.objects.filter(user=user)
         famount = 0
+        shipping = SHIPPING_TAX
         for p in cart_items:
             value = p.quantity*p.product.discounted_price
             famount = famount + value
-        totalamount = famount + 40
+        totalamount = famount + shipping
         return render(request, 'Cart/checkout.html', locals())
 
 
@@ -85,7 +89,7 @@ def plus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + SHIPPING_TAX
 
         data = {
             'quantity': c.quantity,
@@ -110,7 +114,7 @@ def minus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + SHIPPING_TAX
 
         data = {
             'quantity': c.quantity,
@@ -134,7 +138,7 @@ def remove_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + SHIPPING_TAX
 
         data = {
             'amount': amount,
@@ -189,3 +193,18 @@ def search(request):
     query = request.GET['search']
     product = Product.objects.filter(Q(title__icontains=query))
     return render(request, 'Cart/search.html', locals())
+
+
+@login_required
+def wishlist(request):
+    totalitem = 0
+    wishitem = 0
+    user = Customer.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+
+    wishlist = Wishlist.objects.filter(user=request.user)
+
+
+    return render(request, 'Cart/wishlist.html', locals())

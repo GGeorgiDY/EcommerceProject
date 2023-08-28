@@ -1,6 +1,6 @@
 from django.urls import path
 from EcommerceProject.Cart.views import add_to_cart, show_cart, minus_cart, remove_cart, plus_cart, checkout, \
-    minus_wishlist, plus_wishlist, search
+    minus_wishlist, plus_wishlist, search, wishlist
 
 urlpatterns = [
     path('add-to-cart/', add_to_cart, name='add-to-cart'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('minuswishlist/', minus_wishlist, name='minus_wishlist'),
 
     path('search/', search, name='search'),
+
+    path('wishlist/', wishlist, name='wishlist'),
 ]

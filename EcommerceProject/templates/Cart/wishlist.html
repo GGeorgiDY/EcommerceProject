@@ -1,0 +1,49 @@
+{% extends 'EcommerceApp/base.html' %}
+{% load static %}
+{% block title %}Search Result{% endblock title %}
+
+{% block main-content %}
+    <div class="container my-5">
+        <div class="row">
+            {% if wishlist %}
+                <h1 class="text-canter mb-5">Wishlist</h1>
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Products</h3>
+                            {% for item in wishlist %}
+                                <div class="row">
+                                    <div class="col-sm-3 text-center align-self-center">
+                                        <a href="{% url 'product-detail' pk=item.product.pk %}">
+                                            <img src="{{ item.product.product_image.url }}" alt="" srcset=""
+                                                 class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div>
+                                            <h5>{{ item.product.title }}</h5>
+                                            <p class="mb-2 text-muted small">{{ item.product.description }}</p>
+
+                                            <div class="d-flex justify-content-between">
+                                                <a href="#" class="remove-cart tn btn-sm btn-secondary mr-3"
+                                                   pid={{ item.product.id }} data-remove-url="{% url 'remove_cart' %}">Remove
+                                                    item</a>
+                                                <p class="mb-0">
+                                                    <span><strong>{{ item.product.discounted_price }} лв.</strong></span>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="text-muted">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <h1 class="text-center mb-5">Wishlist is Empty</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock main-content %}
