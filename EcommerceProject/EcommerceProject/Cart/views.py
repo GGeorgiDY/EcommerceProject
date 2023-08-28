@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from EcommerceProject.Accounts.models import Customer
-from EcommerceProject.Cart.models import Cart
+from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 
 
@@ -20,7 +20,7 @@ def add_to_cart(request):
     Cart(user=customer, product=product).save()
 
     # return redirect("/cart")
-    return redirect(reverse('show-cart'))
+    return redirect(reverse('show_cart'))
 
 
 def show_cart(request):
@@ -127,4 +127,36 @@ def remove_cart(request):
             'amount': amount,
             'totalamount': totalamount,
         }
+        return JsonResponse(data)
+
+
+def plus_wishlist(request):
+    # user = Customer.objects.get(user=request.user)
+
+    if request.method == 'GET':
+        prod_id = request.GET['prod_id']
+        product = Product.objects.get(id=prod_id)
+
+        user = request.user
+        Wishlist(user=user, product=product).save()
+        data = {
+            'message': 'Wishlist Added Successfully',
+        }
+
+        return JsonResponse(data)
+
+
+def minus_wishlist(request):
+    # user = Customer.objects.get(user=request.user)
+
+    if request.method == 'GET':
+        prod_id = request.GET['prod_id']
+        product = Product.objects.get(id=prod_id)
+
+        user = request.user
+        Wishlist.objects.filter(user=user, product=product).delete()
+        data = {
+            'message': 'Wishlist Remove Successfully',
+        }
+
         return JsonResponse(data)

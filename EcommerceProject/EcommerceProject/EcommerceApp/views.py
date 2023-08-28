@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
 from EcommerceProject.Accounts.models import Customer
-from EcommerceProject.Cart.models import Cart
+from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 
 
@@ -75,6 +77,7 @@ def category_title(request, val):
 #         product = Product.objects.get(pk=pk)
 #         return render(request, "EcommerceApp/productdetails.html", locals())
 
+
 def product_details(request, pk):
     totalitem = 0
     user = Customer.objects.get(user=request.user)
@@ -82,4 +85,7 @@ def product_details(request, pk):
         totalitem = len(Cart.objects.filter(user=user))
 
     product = Product.objects.get(pk=pk)
+    wishlist = Wishlist.objects.filter(Q(product=product) & Q(user=request.user))
+    print(wishlist)
+
     return render(request, "EcommerceApp/productdetails.html", locals())
