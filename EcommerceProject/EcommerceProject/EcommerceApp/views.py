@@ -7,6 +7,7 @@ from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 
 
+@login_required
 def home(request):
     # това дисплейва колко продукта имаме в количката, за да ги визуализира в навигацията
     totalitem = 0
@@ -20,6 +21,7 @@ def home(request):
     return render(request, "EcommerceApp/home.html", locals())
 
 
+@login_required
 def about(request):
     totalitem = 0
     wishitem = 0
@@ -31,6 +33,7 @@ def about(request):
     return render(request, "EcommerceApp/about.html", locals())
 
 
+@login_required
 def contact(request):
     totalitem = 0
     wishitem = 0
@@ -49,6 +52,7 @@ def contact(request):
 #         return render(request, "EcommerceApp/category.html", locals())
 
 
+@login_required
 def category_view(request, val):
     totalitem = 0
     wishitem = 0
@@ -72,6 +76,7 @@ def category_view(request, val):
 #         return render(request, "EcommerceApp/category.html", locals())
 
 
+@login_required
 def category_title(request, val):
     totalitem = 0
     wishitem = 0
@@ -91,6 +96,7 @@ def category_title(request, val):
 #         return render(request, "EcommerceApp/productdetails.html", locals())
 
 
+@login_required
 def product_details(request, pk):
     totalitem = 0
     wishitem = 0

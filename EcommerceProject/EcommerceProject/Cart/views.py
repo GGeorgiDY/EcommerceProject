@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from EcommerceProject.Accounts.models import Customer
@@ -9,6 +11,7 @@ from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 
 
+@login_required
 def add_to_cart(request):
     my_user = request.user
     customer = Customer.objects.get(user=my_user)
@@ -23,6 +26,7 @@ def add_to_cart(request):
     return redirect(reverse('show_cart'))
 
 
+@login_required
 def show_cart(request):
     totalitem = 0
     wishitem = 0
@@ -41,6 +45,8 @@ def show_cart(request):
     return render(request, 'Cart/addtocart.html', locals())
 
 
+# когато имаме класове се използва това вместо @login_required
+@method_decorator(login_required, name='dispatch')
 class checkout(View):
     def get(self, request):
         totalitem = 0
@@ -61,6 +67,7 @@ class checkout(View):
         return render(request, 'Cart/checkout.html', locals())
 
 
+@login_required
 def plus_cart(request):
     user = Customer.objects.get(user=request.user)
     if request.method == 'GET':
@@ -88,6 +95,7 @@ def plus_cart(request):
         return JsonResponse(data)
 
 
+@login_required
 def minus_cart(request):
     user = Customer.objects.get(user=request.user)
     if request.method == 'GET':
@@ -112,6 +120,7 @@ def minus_cart(request):
         return JsonResponse(data)
 
 
+@login_required
 def remove_cart(request):
     user = Customer.objects.get(user=request.user)
     if request.method == 'GET':
@@ -134,6 +143,7 @@ def remove_cart(request):
         return JsonResponse(data)
 
 
+@login_required
 def plus_wishlist(request):
     # user = Customer.objects.get(user=request.user)
 
@@ -150,6 +160,7 @@ def plus_wishlist(request):
         return JsonResponse(data)
 
 
+@login_required
 def minus_wishlist(request):
     # user = Customer.objects.get(user=request.user)
 
@@ -166,6 +177,7 @@ def minus_wishlist(request):
         return JsonResponse(data)
 
 
+@login_required
 def search(request):
     totalitem = 0
     wishitem = 0

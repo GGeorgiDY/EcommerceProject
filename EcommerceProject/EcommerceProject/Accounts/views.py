@@ -1,11 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm
 from EcommerceProject.Accounts.models import Customer
 from EcommerceProject.Cart.models import Cart, Wishlist
 
 
+@method_decorator(login_required, name='dispatch')
 class CustomerRegistrationView(View):
     def get(self, request):
         totalitem = 0
@@ -29,6 +32,7 @@ class CustomerRegistrationView(View):
         return render(request, "Accounts/customerregistration.html", locals())
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
         totalitem = 0
@@ -60,6 +64,7 @@ class ProfileView(View):
         return render(request, 'Accounts/profile.html', locals())
 
 
+@login_required
 def address(request):
     totalitem = 0
     wishitem = 0
@@ -72,6 +77,7 @@ def address(request):
     return render(request, "Accounts/address.html", locals())
 
 
+@method_decorator(login_required, name='dispatch')
 class UpdateAddress(View):
     def get(self, request, pk):
         totalitem = 0
