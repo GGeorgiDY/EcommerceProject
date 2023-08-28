@@ -13,8 +13,8 @@ class CustomerRegistrationForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'autofocus ':'True',
-                'class':'form-control'
+                'autofocus': 'True',
+                'class': 'form-control'
             }
         )
     )
