@@ -2,14 +2,11 @@ from django.db import models
 
 
 CATEGORY_CHOICES = (
-    ('CR', 'Curd'),
-    ('ML', 'Milk'),
-    ('LS', 'Lassi'),
-    ('MS', 'Milkshake'),
-    ('PN', 'Paneer'),
-    ('GH', 'Ghee'),
-    ('CZ', 'Cheese'),
-    ('IC', 'Ice-creams'),
+    ('CBDOil', 'CBD Oil'),
+    ('CBDPaste', 'CBD Paste'),
+    ('CBDDABWAX', 'CBD DAB WAX'),
+    ('CBDVape', 'CBD Vape'),
+    ('CBDCosmetics', 'CBD Cosmetics'),
 )
 
 
@@ -22,7 +19,7 @@ class Product(models.Model):
     prodapp = models.TextField(default='')
     category = models.CharField(
         choices=CATEGORY_CHOICES,
-        max_length=2,
+        max_length=13,
     )
     product_image = models.ImageField(upload_to='product')
 

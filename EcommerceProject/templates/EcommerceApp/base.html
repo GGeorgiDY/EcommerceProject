@@ -23,9 +23,9 @@
 {# https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works #}
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
     <div class="container-fluid">
-        {#        <a class="navbar-brand" href="#">#}
-        {#            <img src="{% static 'EcommerceApp/images/Neel.png' %}" width="70" height="50" alt="">#}
-        {#        </a>#}
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'EcommerceApp/images/weed.png' %}" width="70" height="50" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,14 +44,14 @@
                             {#                        {{ request.user.username|capfirst }}#}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghe</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Panner</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDOil' %}">CBD Oil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDPaste' %}">CBD Paste</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDDABWAX' %}">CBD DAB WAX</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDVape' %}">CBD Vape</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDCosmetics' %}">CBD Cosmetics</a></li>
+
+{#                            <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>#}
+{#                            <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>#}
                             {# <li><hr class="dropdown-divider"></li>#}
                             {# <li><a class="dropdown-item" href="#">Something else here</a></li>#}
                         </ul>

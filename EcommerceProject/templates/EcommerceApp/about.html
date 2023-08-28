@@ -3,16 +3,79 @@
 {% block title %}About us{% endblock title %}
 
 {% block main-content %}
-    <div class="container mt-3">
-        <br>
-        <h2 class="text-center">About us</h2>
-        <br>
-        <div class="row container">
-            <p class="fs-4 text-center">
-                This is my Django Ecommerce project.
-                In this website you can virtually buy some stuff.
-                Hope you will like this website. :)
+
+{% block custom-css %}
+<style>
+    body {
+        background-image: url("{% static 'EcommerceApp/images/banner/b1.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .content-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Style for list items */
+    .content-container ul {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    .content-container ul li {
+        position: relative;
+        padding-left: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .content-container ul li::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+    }
+</style>
+{% endblock custom-css %}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 content-container">
+            <h2 class="text-center mb-4">About Us</h2>
+            <p class="lead">
+                Many people think that oil is harmful simply because they associate it with hemp. However, the truth is
+                that it has extremely beneficial effects on the body and can be beneficial in many cases. Regarding the
+                topic of the medical benefits of our product, studies have shown that the consumption of this oil
+                stops the development of cancer cells and has a very positive effect in preventing neurodegenerative diseases.
+            </p>
+            <p class="lead">
+                The daily use of this product also has its major benefits, the most important of which are:
+            </p>
+            <ul class="list-group">
+                <li>
+                    Reduces insomnia and anxiety levels – hemp oil relaxes the nervous system and allows it to function
+                    properly by relieving excess tension. It's important to know that due to the absence of THC in the
+                    product, it does not act as a psychoactive substance for the brain and does not harm it. You will
+                    feel an improvement in your stress levels after the first few doses, leading to better sleep quality.
+                </li>
+                <li>
+                    Strengthens the immune system – it's proven that due to the high levels of beneficial nutrients,
+                    hemp oil enhances your immune system, making it an excellent choice for protection during epidemic periods.
+                </li>
+                <li>
+                    Balancing effect – the presence of fatty acids and other nutrients in the natural extract, from which
+                    the product is made, contribute to a good balance and development of hormones. Along with its
+                    pain-relieving function, the product can be useful during the menstrual period, reducing pain from
+                    unpleasant cramps.
+                </li>
+            </ul>
+            <p class="lead mt-4">
+                Don't be deceived by the origin of the oil, as it has a wide range of positive aspects that are not
+                contradictory to your health, but quite the opposite – they support the proper development of the body.
             </p>
         </div>
     </div>
+</div>
+
 {% endblock main-content %}
