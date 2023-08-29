@@ -45,7 +45,8 @@
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDPaste' %}">CBD Paste</a></li>
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDDABWAX' %}">CBD DAB WAX</a></li>
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDVape' %}">CBD Vape</a></li>
-                            <li><a class="dropdown-item" href="{% url 'category' 'CBDCosmetics' %}">CBD Cosmetics</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDCosmetics' %}">CBD Cosmetics</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -70,11 +71,13 @@
 
         <!-- Center the search box -->
         {% if request.user.is_authenticated %}
-            <div class="mx-auto order-0">
-                <form class="d-flex w-75" role="search" action="{% url 'search' %}">
-                    <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search" style="width: 500px;">
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
+            <div class="mx-auto order-0 col-2">
+                <form id="search-form" class="d-flex" role="search" action="{% url 'search' %}" method="GET">
+                    <input id="search-input" class="form-control me-2 col-2" type="search" placeholder="Search" name="search"
+                           aria-label="Search">
+{#                    <button class="btn btn-outline-dark" type="submit" style="border: none; background-color: #f0ecec"><i class="fas fa-search"></i></button>#}
                 </form>
+                <div id="search-predictions" style="position: absolute; z-index: 9999; background-color: white; border-radius: 5px " class="col-2"></div>
             </div>
         {% endif %}
 
@@ -116,6 +119,7 @@
                             <i class="fa fa-heart"></i>
                         </a>
                     </li>
+
                 </ul>
             </div>
         {% endif %}
@@ -144,6 +148,7 @@
 <script src="{% static 'EcommerceApp/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'EcommerceApp/js/all.min.js' %}"></script>
 <script src="{% static 'EcommerceApp/js/myscript.js' %}"></script>
+<script src="{% static 'EcommerceApp/js/search-box-prediction.js' %}"></script>
 
 
 </body>

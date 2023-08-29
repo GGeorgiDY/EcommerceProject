@@ -195,6 +195,19 @@ def search(request):
     return render(request, 'Cart/search.html', locals())
 
 
+# def search_predictions(request):
+#     query = request.GET.get('query', '')
+#     predictions = Product.objects.filter(title__icontains=query).values_list('title', flat=True)
+#     return JsonResponse(list(predictions), safe=False)
+
+def search_predictions(request):
+    query = request.GET.get('query', '')
+    # predictions = Product.objects.filter(title__icontains=query).values_list('title', flat=True)
+    predictions = Product.objects.filter(title__icontains=query).values_list('title', 'id')
+
+    return JsonResponse(list(predictions), safe=False)
+
+
 @login_required
 def wishlist(request):
     totalitem = 0

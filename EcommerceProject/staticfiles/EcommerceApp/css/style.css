@@ -84,3 +84,7 @@
 .goodnesssec a{
     text-decoration: none;
 }
+
+.search-suggest-item:hover {
+    cursor: pointer;
+}
