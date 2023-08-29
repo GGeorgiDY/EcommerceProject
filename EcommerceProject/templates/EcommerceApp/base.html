@@ -95,18 +95,14 @@
                         </ul>
                     </li>
 
-
-
                     <li class="nav-item mx-2">
                         <a href="{% url 'show_cart' %}" class="nav-link text-white">
                             {% if totalitem > 0 %}
                                 <span class="badge bg-danger">
                                         {{ totalitem }}
                                 </span>
-                                Cart
-                            {% else %}
-                                Cart
                             {% endif %}
+                            <i class="fas fa-shopping-cart"></i>
                         </a>
                     </li>
 
