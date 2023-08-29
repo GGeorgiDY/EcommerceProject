@@ -18,30 +18,27 @@
 
     <title> Dairy Products | {% block title %}{% endblock title %}</title>
 </head>
-<body>
 
-{# https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works #}
+
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success ">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'EcommerceApp/images/weed.png' %}" width="70" height="50" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+        <!-- Move the elements to the left -->
+        <div class="navbar-collapse collapse order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav me-auto">
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
                             Products
-                            {#                        {{ request.user.username|capfirst }}#}
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDOil' %}">CBD Oil</a></li>
@@ -49,13 +46,9 @@
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDDABWAX' %}">CBD DAB WAX</a></li>
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDVape' %}">CBD Vape</a></li>
                             <li><a class="dropdown-item" href="{% url 'category' 'CBDCosmetics' %}">CBD Cosmetics</a></li>
-
-{#                            <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>#}
-{#                            <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>#}
-                            {# <li><hr class="dropdown-divider"></li>#}
-                            {# <li><a class="dropdown-item" href="#">Something else here</a></li>#}
                         </ul>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'about' %}">About Us</a>
                     </li>
@@ -63,15 +56,32 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
                     </li>
-                    </ul>
+                {% else %}
+                    <!-- ... Your non-authenticated user links ... -->
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
 
-                    <form class="d-flex" role="search" action="{% url 'search' %}">
-                        <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
-                        <button class="btn btn-outline-dark" type="submit">Search</button>
-                    </form>
-                    </div>
+        <!-- Center the search box -->
+        {% if request.user.is_authenticated %}
+            <div class="mx-auto order-0">
+                <form class="d-flex w-75" role="search" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search" style="width: 500px;">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+            </div>
+        {% endif %}
 
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Push everything to the right corner -->
+        {% if request.user.is_authenticated %}
+            <div class="navbar-collapse collapse order-3 dual-collapse2">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">{{ request.user.username }}</a>
@@ -85,6 +95,8 @@
                         </ul>
                     </li>
 
+
+
                     <li class="nav-item mx-2">
                         <a href="{% url 'show_cart' %}" class="nav-link text-white">
                             {% if totalitem > 0 %}
@@ -97,6 +109,7 @@
                             {% endif %}
                         </a>
                     </li>
+
                     <li class="nav-item mx-2">
                         <a href="{% url 'wishlist' %}" class="nav-link text-white">
                             {% if wishitem > 0 %}
@@ -107,16 +120,9 @@
                             <i class="fa fa-heart"></i>
                         </a>
                     </li>
-                {% else %}
-                    <li class="nav-item mx-2">
-                        <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
-                    </li>
-                {% endif %}
-
                 </ul>
+            </div>
+        {% endif %}
     </div>
 </nav>
 

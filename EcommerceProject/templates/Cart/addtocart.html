@@ -14,8 +14,10 @@
                             {% for item in cart %}
                                 <div class="row">
                                     <div class="col-sm-3 text-center align-self-center">
-                                        <img src="{{ item.product.product_image.url }}" alt="" srcset=""
-                                             class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                        <a href="{% url 'product-detail' pk=item.product.pk %}">
+                                            <img src="{{ item.product.product_image.url }}" alt="" srcset=""
+                                                 class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                        </a>
                                     </div>
                                     <div class="col-sm-9">
                                         <div>
