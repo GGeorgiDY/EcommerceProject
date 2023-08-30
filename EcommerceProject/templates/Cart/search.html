@@ -83,12 +83,18 @@
                         <img src="{{ prod.product_image.url }}" class="card-img-top product-image" alt="{{ prod.title }}" style="height: 350px;">
                         <div class="card-body" style="transform-origin: center; transition: transform 0.2s;">
                             <h5 class="card-title">{{ prod.title }}</h5>
-                            <p class="card-text fw-bold product-price" style="color: #dc3545;">
-                                {{ prod.discounted_price }} лв.
-                                <span class="fw-light text-decoration-line-through">
-                                    {{ prod.selling_price }} лв.
-                                </span>
-                            </p>
+                            {% if prod.selling_price %}
+                                <p class="card-text fw-bold product-price" style="color: #dc3545;">
+                                    {{ prod.discounted_price }} BGN
+                                    <span class="fw-light text-decoration-line-through">
+                                        {{ prod.selling_price }} BGN
+                                    </span>
+                                </p>
+                            {% else %}
+                                <p>
+                                    <b>{{ prod.discounted_price }} BGN</b>
+                                </p>
+                            {% endif %}
                             <a href="{% url 'product-detail' prod.id %}" class="btn btn-primary">Details</a>
                         </div>
                     </div>

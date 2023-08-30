@@ -21,13 +21,13 @@
                         <div class="card-body">
                             <h5>Product: {{ item.product.title }}</h5>
                             <p>Quantity: {{ item.quantity }}</p>
-                            <p class="fw-bold">Price: {{ item.product.discounted_price }} лв.</p>
+                            <p class="fw-bold">Price: {{ item.product.discounted_price }} BGN</p>
                         </div>
                     </div>
                     <br>
                 {% endfor %}
 
-                <p class="fw-bold">Total Cost({{ totalamount }}лв.) + Shipping tax({{ shipping }}лв.) = {{ totalamount }} лв.</p>
+                <p class="fw-bold">Total Cost({{ totalamount }} BGN) + Shipping tax({{ shipping }} BGN) = {{ totalamount }} BGN</p>
                 <small>Term and Condition: Lorem ipsum dolor sit amet, consectetur adipisicing elit. A corporis, cumque
                     cupiditate distinctio ducimus eos exercitationem fuga hic maiores maxime minus modi necessitatibus
                     quam quasi repellat similique sunt ut voluptate!</small>

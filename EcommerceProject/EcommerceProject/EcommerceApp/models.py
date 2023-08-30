@@ -12,7 +12,10 @@ CATEGORY_CHOICES = (
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
-    selling_price = models.FloatField()
+    selling_price = models.FloatField(
+        blank=True,
+        null=True,
+    )
     discounted_price = models.FloatField()
     description = models.TextField()
     composition = models.TextField(default='')

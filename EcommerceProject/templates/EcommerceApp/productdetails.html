@@ -14,11 +14,15 @@
                 <h1 style="font-family: Georgia; font-size: 50px">
                     {{ product.title }}
                 </h1>
-                <h3 class="fw-bold text-danger">{{ product.discounted_price }} лв.
-                    <small class="text-decoration-line-through text-muted fs-5">
-                        <del>{{ product.selling_price }} лв.</del>
-                    </small>
-                </h3>
+                {% if product.selling_price %}
+                    <h3 class="fw-bold text-danger">{{ product.discounted_price }} BGN
+                        <small class="text-decoration-line-through text-muted fs-5">
+                            <del>{{ product.selling_price }} BGN</del>
+                        </small>
+                    </h3>
+                {% else %}
+                    <h3><b>{{ product.discounted_price }} BGN</b></h3>
+                {% endif %}
                 <br>
                 <br>
                 <h4>Product Features</h4>
