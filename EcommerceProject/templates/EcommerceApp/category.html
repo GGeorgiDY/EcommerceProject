@@ -3,7 +3,7 @@
 {% block title %}Category{% endblock title %}
 
 {% block main-content %}
-    <div class="container my-5">
+    <div class="container my-5" style="max-width: 1700px">
         <div class="row">
             <div class="col-sm-3">
                 <div class="list-group">
@@ -15,20 +15,36 @@
             </div>
             <div class="col-sm-9">
                 <div class="row">
-                    {% for product in products %}
-                        <div class="col text-center mb-4">
-                            <a href="{% url "product-detail" pk=product.pk %}" class="btn">
-                            <div>
-                                <img src="{{ product.product_image.url }}" width="300px" height="200px">
-                                <div class="fw-bold">{{ product.title }}</div>
-                                <div class="fw-bold text-danger">
-                                    {{ product.discounted_price }} лв.
-                                    <small class="fw-light text-decoration-line-through">
-                                        {{ product.selling_price }} лв.
-                                    </small>
+                    {% for prod in products %}
+{#                        <div class="col text-center mb-4">#}
+{#                            <a href="{% url "product-detail" pk=product.pk %}" class="btn">#}
+{#                            <div>#}
+{#                                <img src="{{ product.product_image.url }}" width="300px" height="200px">#}
+{#                                <div class="fw-bold">{{ product.title }}</div>#}
+{#                                <div class="fw-bold text-danger">#}
+{#                                    {{ product.discounted_price }} лв.#}
+{#                                    <small class="fw-light text-decoration-line-through">#}
+{#                                        {{ product.selling_price }} лв.#}
+{#                                    </small>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            </a>#}
+{#                        </div>#}
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="card product-card" style="margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s;">
+                                <img src="{{ prod.product_image.url }}" class="card-img-top product-image" alt="{{ prod.title }}" style="height: 350px;">
+                                <div class="card-body" style="transform-origin: center; transition: transform 0.2s;">
+                                    <h5 class="card-title">{{ prod.title }}</h5>
+                                    <p class="card-text fw-bold product-price" style="color: #dc3545;">
+                                        {{ prod.discounted_price }} лв.
+                                        <span class="fw-light text-decoration-line-through" style="color: black">
+                                            <b>{{ prod.selling_price }} лв.</b>
+                                        </span>
+                                    </p>
+                                    <a href="{% url 'product-detail' prod.id %}" class="btn btn-primary">Details</a>
                                 </div>
                             </div>
-                            </a>
                         </div>
                     {% endfor %}
                 </div>
