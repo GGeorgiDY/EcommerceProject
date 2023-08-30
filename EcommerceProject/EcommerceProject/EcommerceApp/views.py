@@ -18,6 +18,9 @@ def home(request):
         totalitem = len(Cart.objects.filter(user=user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
 
+    print(wishitem)
+    print(request.user)
+
     return render(request, "EcommerceApp/home.html", locals())
 
 

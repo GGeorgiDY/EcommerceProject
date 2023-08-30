@@ -20,9 +20,9 @@ searchInput.addEventListener('input', () => {
                     predictionElement.addEventListener('click', () => {
                         fetch(`/product-detail/${prediction[1]}`)
                             .then( (res) => {
-                                if (res.status == '500' || res.status == '404') {
+                                if (res.status === 500 || res.status === 404) {
                                     throw new Error('Bad Request')
-                                } else if (res.status == '200') {
+                                } else if (res.status === 200) {
                                     window.location.href = res.url
                                 }
                             })
