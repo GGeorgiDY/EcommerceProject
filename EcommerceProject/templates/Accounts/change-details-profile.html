@@ -1,0 +1,88 @@
+{% extends 'EcommerceApp/base.html' %}
+{% load static %}
+{% block title %}Change Details Profile{% endblock title %}
+
+
+
+{#{% block main-content %}#}
+{#        <div class="edit-delete">#}
+{#        <h2>Edit Profile</h2>#}
+{#        <form action="{% url 'change_details_profile' pk=request.user.pk %}" method="post">#}
+{#            {% for field in form %}#}
+{#                <p class="error"> {{ field.errors }} </p>#}
+{#                <div class="label-input">#}
+{#                    <label>{{ field.label }}</label>#}
+{##}
+{#                    {% if not field.label == "Gender:" %}#}
+{#                        {{ field }}#}
+{#                    {% else %}#}
+{#                        <div class="list-choice">#}
+{#                            <div class="list-choice-title">Gender</div>#}
+{#                            <div class="list-choice-objects">#}
+{##}
+{#                                {% for type, value in form.fields.gender.choices %}#}
+{#                                    <label>#}
+{#                                        <input type="radio" value="{{ value }}" name="gender"#}
+{#                                                {% if form.gender.value == value %}#}
+{#                                               checked#}
+{#                                                {% endif %}/>#}
+{#                                        <span>{{ value }}</span>#}
+{#                                    </label>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#                <br>#}
+{#            {% endfor %}#}
+{#            <button class="edit-btn" type="submit">Edit</button>#}
+{#            {% csrf_token %}#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#{% endblock main-content %}#}
+
+{% block main-content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="edit-delete mt-5">
+                <h2 class="text-center mb-4">Edit Profile</h2>
+                <form action="{% url 'change_details_profile' pk=request.user.pk %}" method="post">
+                    <table class="table table-borderless">
+                        {% for field in form %}
+                            <tr>
+                                <td style="width: 30%;">
+                                    <label class="form-label">{{ field.label }}</label>
+                                </td>
+                                <td>
+                                    {% if not field.label == "Gender:" %}
+                                        {{ field }}
+                                    {% else %}
+                                        <div class="list-choice">
+                                            <div class="list-choice-title">Gender</div>
+                                            <div class="list-choice-objects">
+                                                {% for type, value in form.fields.gender.choices %}
+                                                    <label class="form-check">
+                                                        <input type="radio" class="form-check-input" value="{{ value }}" name="gender"
+                                                            {% if form.gender.value == value %}
+                                                                checked
+                                                            {% endif %}/>
+                                                        <span class="form-check-label">{{ value }}</span>
+                                                    </label>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <button class="btn btn-primary" type="submit">Edit</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

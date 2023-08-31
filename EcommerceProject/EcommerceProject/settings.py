@@ -115,3 +115,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# това е нещо с което казваме на джанго, че искаме за юзъри вече да не използваш твой си build-in юзър, а да използва този Accounts.AppUser
+AUTH_USER_MODEL = 'Accounts.AppUser'

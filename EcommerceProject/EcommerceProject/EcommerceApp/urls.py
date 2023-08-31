@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from EcommerceProject.EcommerceApp.views import home, about, contact, \
-    category_view, category_title, product_details
+from EcommerceProject.EcommerceApp.views import home, about, contact, category_view, category_title, product_details
 
 urlpatterns = [
     path('', home, name='home'),

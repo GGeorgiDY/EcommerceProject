@@ -6,38 +6,43 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from EcommerceProject.Accounts.models import Customer
+from EcommerceProject.Accounts.models import AppUser
 from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
+from django.contrib.auth import get_user_model
 
+UserModel = get_user_model()
 
 SHIPPING_TAX = 5.00
 
-@login_required
+# @login_required
 def add_to_cart(request):
     my_user = request.user
-    customer = Customer.objects.get(user=my_user)
+    # customer = Cart.user.objects.get(user=my_user)
+    # customer = Cart.user
 
     # взимам продукта благодарение на един инпут, който съм сложил в html страницата и който се казва prod_id
     # <input type="hidden" name="prod_id" value="{{ product.id }}">
     product_id = request.GET.get('prod_id')
     product = Product.objects.get(id=product_id)
-    Cart(user=customer, product=product).save()
+    Cart(user=my_user, product=product).save()
 
     # return redirect("/cart")
     return redirect(reverse('show_cart'))
 
 
-@login_required
+# @login_required
 def show_cart(request):
     totalitem = 0
     wishitem = 0
-    user = Customer.objects.get(user=request.user)
+    # user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
-        wishitem = len(Wishlist.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=user))
 
     # user = Customer.objects.get(user=request.user)
+    user = request.user
     cart = Cart.objects.filter(user=user)
     amount = 0
     shipping = SHIPPING_TAX
@@ -49,18 +54,16 @@ def show_cart(request):
 
 
 # когато имаме класове се използва това вместо @login_required
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 class checkout(View):
     def get(self, request):
         totalitem = 0
         wishitem = 0
-        user = Customer.objects.get(user=request.user)
+        user = self.request.user
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=user))
-            wishitem = len(Wishlist.objects.filter(user=request.user))
+            wishitem = len(Wishlist.objects.filter(user=user))
 
-        # user = Customer.objects.get(user=request.user)
-        add = Customer.objects.filter(user=request.user)
         cart_items = Cart.objects.filter(user=user)
         famount = 0
         shipping = SHIPPING_TAX
@@ -73,7 +76,7 @@ class checkout(View):
 
 @login_required
 def plus_cart(request):
-    user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         # Q е multiple filter condition
@@ -101,7 +104,7 @@ def plus_cart(request):
 
 @login_required
 def minus_cart(request):
-    user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         c = Cart.objects.get(Q(product=prod_id) & Q(user=user))
@@ -126,7 +129,7 @@ def minus_cart(request):
 
 @login_required
 def remove_cart(request):
-    user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         c = Cart.objects.get(Q(product=prod_id) & Q(user=user))
@@ -149,8 +152,6 @@ def remove_cart(request):
 
 @login_required
 def plus_wishlist(request):
-    # user = Customer.objects.get(user=request.user)
-
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         product = Product.objects.get(id=prod_id)
@@ -166,8 +167,6 @@ def plus_wishlist(request):
 
 @login_required
 def minus_wishlist(request):
-    # user = Customer.objects.get(user=request.user)
-
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
         product = Product.objects.get(id=prod_id)
@@ -185,7 +184,8 @@ def minus_wishlist(request):
 def search(request):
     totalitem = 0
     wishitem = 0
-    user = Customer.objects.get(user=request.user)
+    # user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
@@ -194,11 +194,6 @@ def search(request):
     product = Product.objects.filter(Q(title__icontains=query))
     return render(request, 'Cart/search.html', locals())
 
-
-# def search_predictions(request):
-#     query = request.GET.get('query', '')
-#     predictions = Product.objects.filter(title__icontains=query).values_list('title', flat=True)
-#     return JsonResponse(list(predictions), safe=False)
 
 def search_predictions(request):
     query = request.GET.get('query', '')
@@ -212,12 +207,11 @@ def search_predictions(request):
 def wishlist(request):
     totalitem = 0
     wishitem = 0
-    user = Customer.objects.get(user=request.user)
+    user = request.user
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
-        wishitem = len(Wishlist.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=user))
 
-    wishlist = Wishlist.objects.filter(user=request.user)
-
+    wishlist = Wishlist.objects.filter(user=user)
 
     return render(request, 'Cart/wishlist.html', locals())

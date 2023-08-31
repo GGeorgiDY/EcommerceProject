@@ -1,12 +1,14 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
-from EcommerceProject.Accounts.models import Customer
 from EcommerceProject.EcommerceApp.models import Product
+
+UserModel = get_user_model()
 
 
 class Cart(models.Model):
     user = models.ForeignKey(
-        Customer,
+        UserModel,
         on_delete=models.CASCADE
     )
 
@@ -24,7 +26,7 @@ class Cart(models.Model):
 
 class Wishlist(models.Model):
     user = models.ForeignKey(
-        User,
+        UserModel,
         on_delete=models.CASCADE,
     )
     product = models.ForeignKey(
