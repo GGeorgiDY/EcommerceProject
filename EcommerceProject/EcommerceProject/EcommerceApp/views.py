@@ -59,7 +59,7 @@ class CategoryView(View):
         return render(request, "EcommerceApp/category.html", locals())
 
 
-@login_required
+# @login_required
 def category_view(request, val):
     totalitem = 0
     wishitem = 0
@@ -84,7 +84,7 @@ class CategoryTitle(View):
         return render(request, "EcommerceApp/category.html", locals())
 
 
-@login_required
+# @login_required
 def category_title(request, val):
     totalitem = 0
     wishitem = 0
@@ -105,7 +105,7 @@ class ProductDetails(View):
         return render(request, "EcommerceApp/productdetails.html", locals())
 
 
-@login_required
+# @login_required
 def product_details(request, pk):
     totalitem = 0
     wishitem = 0

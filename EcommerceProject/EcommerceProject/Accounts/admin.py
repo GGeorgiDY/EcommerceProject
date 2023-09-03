@@ -1,7 +1,9 @@
-# from django.contrib import admin
-# from EcommerceProject.Accounts.models import Customer
-#
-#
-# @admin.register(Customer)
-# class CustomerModelAdmin(admin.ModelAdmin):
-#     list_display = ['id', 'user', 'locality', 'city', 'zipcode']
+from django.contrib import admin
+from django.contrib.auth import admin as auth_admin, get_user_model
+
+UserModel = get_user_model()
+
+
+@admin.register(UserModel)
+class UserAdmin(auth_admin.UserAdmin):
+    list_display = ['id', 'username', 'locality', 'city', 'zipcode']

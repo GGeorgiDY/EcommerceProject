@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, \
     SetPasswordForm, PasswordResetForm
-from django.contrib.auth.models import User
 
 
 UserModel = get_user_model()
@@ -13,7 +12,8 @@ class CustomerRegistrationForm(auth_forms.UserCreationForm):
         widget=forms.TextInput(
             attrs={
                 'autofocus': 'True',
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'Place you username here'
             }
         )
     )
@@ -21,7 +21,8 @@ class CustomerRegistrationForm(auth_forms.UserCreationForm):
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
-                'class':'form-control'
+                'class':'form-control',
+                'placeholder': 'Place you email here'
             }
         )
     )
@@ -30,7 +31,8 @@ class CustomerRegistrationForm(auth_forms.UserCreationForm):
         label='Password',
         widget=forms.PasswordInput(
             attrs={
-                'class':'form-control'
+                'class':'form-control',
+                'placeholder': 'Place you passwort here'
             }
         )
     )
@@ -39,7 +41,8 @@ class CustomerRegistrationForm(auth_forms.UserCreationForm):
         label='Confirm Password',
         widget=forms.PasswordInput(
             attrs={
-                'class':'form-control'
+                'class':'form-control',
+                'placeholder': 'Repeat your password here'
             }
         )
     )
@@ -47,6 +50,7 @@ class CustomerRegistrationForm(auth_forms.UserCreationForm):
     class Meta:
         model = UserModel
         fields = ("username", "password1", "password2", "email",)
+        field_classes = {"username": auth_forms.UsernameField}
 
 
 class CustomerLoginForm(AuthenticationForm):

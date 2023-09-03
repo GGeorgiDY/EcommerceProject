@@ -1,19 +1,13 @@
-from django.contrib import messages
-# from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-# from django.utils.decorators import method_decorator
-from django.views import View
-# from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm
-# from EcommerceProject.Accounts.models import Customer
-# from EcommerceProject.Cart.models import Cart, Wishlist
-
 from django.contrib.auth import views as auth_views, get_user_model
 from django.views import generic as views
 from django.urls import reverse_lazy
 
 from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm, CustomerPasswordChangeForm
 from EcommerceProject.Cart.models import Cart, Wishlist
+from EcommerceProject.Core.utils import is_owner
 
+# Името на юзър модела трябва да го има само на 2 места - в models.py и в settings.py. Навсякъде другаде трябва да го
+# взимаме по долния начин. Логиката е че ако се промени името на юзър моделеа, това ще ни връща правилното.
 UserModel = get_user_model()
 # self.request.user е логнатия юзър
 # self.object е селектирания юзър
