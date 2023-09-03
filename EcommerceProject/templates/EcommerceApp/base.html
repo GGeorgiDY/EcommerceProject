@@ -59,12 +59,31 @@
                     </li>
                 {% else %}
                     <!-- ... Your non-authenticated user links ... -->
-                    <li class="nav-item mx-2">
-                        <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDOil' %}">CBD Oil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDPaste' %}">CBD Paste</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDDABWAX' %}">CBD DAB WAX</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDVape' %}">CBD Vape</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CBDCosmetics' %}">CBD Cosmetics</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item mx-2">
-                        <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
-                    </li>
+
+                    <div class="navbar-collapse collapse order-3 dual-collapse2">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item mx-2">
+                                <a href="{% url 'customerlogin' %}" class="nav-link text-white">Login</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+                            </li>
+                        </ul>
+                    </div>
                 {% endif %}
             </ul>
         </div>
@@ -73,11 +92,13 @@
         {% if request.user.is_authenticated %}
             <div class="mx-auto order-0 col-2">
                 <form id="search-form" class="d-flex" role="search" action="{% url 'search' %}" method="GET">
-                    <input id="search-input" class="form-control me-2 col-2" type="search" placeholder="Search" name="search"
+                    <input id="search-input" class="form-control me-2 col-2" type="search" placeholder="Search"
+                           name="search"
                            aria-label="Search">
-{#                    <button class="btn btn-outline-dark" type="submit" style="border: none; background-color: #f0ecec"><i class="fas fa-search"></i></button>#}
                 </form>
-                <div id="search-predictions" style="position: absolute; z-index: 9999; background-color: white; border-radius: 5px " class="col-2"></div>
+                <div id="search-predictions"
+                     style="position: absolute; z-index: 9999; background-color: white; border-radius: 5px "
+                     class="col-2"></div>
             </div>
         {% endif %}
 

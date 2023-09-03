@@ -1,16 +1,19 @@
 from django.contrib.auth import views as auth_views, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views import generic as views
 from django.urls import reverse_lazy
 
 from EcommerceProject.Accounts.forms import CustomerRegistrationForm, CustomerProfileForm, CustomerPasswordChangeForm
 from EcommerceProject.Cart.models import Cart, Wishlist
-from EcommerceProject.Core.utils import is_owner
+from EcommerceProject.Core.utils import OwnerRequired
 
-# Името на юзър модела трябва да го има само на 2 места - в models.py и в settings.py. Навсякъде другаде трябва да го
-# взимаме по долния начин. Логиката е че ако се промени името на юзър моделеа, това ще ни връща правилното.
+# The name of the user model should be in only 2 places - in models.py and in settings.py. Everywhere else we should get
+# it with the below way. The logic is that if the name of the user model is changed, it will return the correct one.
 UserModel = get_user_model()
-# self.request.user е логнатия юзър
-# self.object е селектирания юзър
+# self.request.user is the logged user. He represents the user who made the current request, if he is authenticated.
+# If the user is not authenticated, self.request.user will be an instance of AnonymousUser.
+# self.object is the selected user
 
 
 class CustomerRegistrationView(views.CreateView):
@@ -27,21 +30,26 @@ class CustomerLogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('home')
 
 
-class PasswordChangeView(auth_views.PasswordChangeView):
+class PasswordChangeView(OwnerRequired, auth_views.PasswordChangeView):
     template_name = 'Accounts/password_change.html'
     model = UserModel
     form_class = CustomerPasswordChangeForm
     success_url = reverse_lazy('profile')
 
 
-class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
+class PasswordChangeDoneView(OwnerRequired, auth_views.PasswordChangeDoneView):
     template_name = 'Accounts/password_change_done.html'
 
 
-class ProfileView(views.DetailView):
+class ProfileView(OwnerRequired, views.DetailView):
     template_name = 'Accounts/profile.html'
     model = UserModel
     form_class = CustomerProfileForm
+
+    # decorator that checks if the user trying to access the page is logged in and if not redirects him to login page
+    @method_decorator(login_required, name='dispatch')
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -60,10 +68,14 @@ class ProfileView(views.DetailView):
         return context
 
 
-class ChangeDetailsProfile(views.UpdateView):
+class ChangeDetailsProfile(OwnerRequired, views.UpdateView):
     template_name = 'Accounts/change-details-profile.html'
     model = UserModel
     fields = ('username', 'first_name', 'last_name', 'email', 'gender')
+
+    @method_decorator(login_required, name='dispatch')
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,9 +100,13 @@ class ChangeDetailsProfile(views.UpdateView):
 
 
 # @login_required
-class Address(views.DetailView):
+class Address(OwnerRequired, views.DetailView):
     template_name = 'Accounts/address.html'
     model = UserModel
+
+    @method_decorator(login_required, name='dispatch')
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -109,11 +125,14 @@ class Address(views.DetailView):
         return context
 
 
-# @method_decorator(login_required, name='dispatch')
-class UpdateAddress(views.UpdateView):
+class UpdateAddress(OwnerRequired, views.UpdateView):
     template_name = 'Accounts/updateAddress.html'
     model = UserModel
     fields = ('locality', 'mobile', 'city', 'zipcode')
+
+    @method_decorator(login_required, name='dispatch')
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

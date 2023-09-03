@@ -107,6 +107,7 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 # като натисна някакъв login бутон, да ме препраща на home страницата
 LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = '/account/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

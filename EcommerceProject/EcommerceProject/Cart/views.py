@@ -5,8 +5,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-
-from EcommerceProject.Accounts.models import AppUser
 from EcommerceProject.Cart.models import Cart, Wishlist
 from EcommerceProject.EcommerceApp.models import Product
 from django.contrib.auth import get_user_model
@@ -15,33 +13,26 @@ UserModel = get_user_model()
 
 SHIPPING_TAX = 5.00
 
-# @login_required
+
 def add_to_cart(request):
     my_user = request.user
-    # customer = Cart.user.objects.get(user=my_user)
-    # customer = Cart.user
-
-    # взимам продукта благодарение на един инпут, който съм сложил в html страницата и който се казва prod_id
+    # I get the product thanks to an input that I put in the html page and which is called "prod_id"
     # <input type="hidden" name="prod_id" value="{{ product.id }}">
     product_id = request.GET.get('prod_id')
     product = Product.objects.get(id=product_id)
     Cart(user=my_user, product=product).save()
-
-    # return redirect("/cart")
     return redirect(reverse('show_cart'))
 
 
-# @login_required
+@login_required
 def show_cart(request):
     totalitem = 0
     wishitem = 0
-    # user = Customer.objects.get(user=request.user)
     user = request.user
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
         wishitem = len(Wishlist.objects.filter(user=user))
 
-    # user = Customer.objects.get(user=request.user)
     user = request.user
     cart = Cart.objects.filter(user=user)
     amount = 0
@@ -53,9 +44,12 @@ def show_cart(request):
     return render(request, 'Cart/addtocart.html', locals())
 
 
-# когато имаме класове се използва това вместо @login_required
-# @method_decorator(login_required, name='dispatch')
-class checkout(View):
+class Checkout(View):
+    # decorator that checks if the user trying to access the page is logged in and if not redirects him to login page
+    @method_decorator(login_required, name='dispatch')
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         totalitem = 0
         wishitem = 0
@@ -74,18 +68,16 @@ class checkout(View):
         return render(request, 'Cart/checkout.html', locals())
 
 
-@login_required
 def plus_cart(request):
     user = request.user
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        # Q е multiple filter condition
-        # c е current cart object
+        # Q is multiple filter condition
+        # c is current cart object
         c = Cart.objects.get(Q(product=prod_id) & Q(user=user))
         c.quantity += 1
         c.save()
 
-        # тук отново трябва да вземе юзъра и текущата карта
         cart = Cart.objects.filter(user=user)
 
         amount = 0
@@ -102,7 +94,6 @@ def plus_cart(request):
         return JsonResponse(data)
 
 
-@login_required
 def minus_cart(request):
     user = request.user
     if request.method == 'GET':
@@ -127,7 +118,6 @@ def minus_cart(request):
         return JsonResponse(data)
 
 
-@login_required
 def remove_cart(request):
     user = request.user
     if request.method == 'GET':
@@ -150,7 +140,6 @@ def remove_cart(request):
         return JsonResponse(data)
 
 
-@login_required
 def plus_wishlist(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
@@ -165,7 +154,6 @@ def plus_wishlist(request):
         return JsonResponse(data)
 
 
-@login_required
 def minus_wishlist(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
@@ -184,7 +172,6 @@ def minus_wishlist(request):
 def search(request):
     totalitem = 0
     wishitem = 0
-    # user = Customer.objects.get(user=request.user)
     user = request.user
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=user))
@@ -197,13 +184,11 @@ def search(request):
 
 def search_predictions(request):
     query = request.GET.get('query', '')
-    # predictions = Product.objects.filter(title__icontains=query).values_list('title', flat=True)
     predictions = Product.objects.filter(title__icontains=query).values_list('title', 'id')
 
     return JsonResponse(list(predictions), safe=False)
 
 
-@login_required
 def wishlist(request):
     totalitem = 0
     wishitem = 0

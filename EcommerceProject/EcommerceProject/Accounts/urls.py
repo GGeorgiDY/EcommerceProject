@@ -12,7 +12,6 @@ urlpatterns = [
     path("password-change/", PasswordChangeView.as_view(), name="password_change"),
     path("password-change-done/", PasswordChangeDoneView.as_view(), name="password_change_done"),
 
-    # path('profile/<int:pk>', ProfileView.as_view(), name='profile'),
     path('profile/<int:pk>/', include([
         path('profile/', ProfileView.as_view(), name='profile'),
         path('change-profile-details/', ChangeDetailsProfile.as_view(), name='change_details_profile'),
